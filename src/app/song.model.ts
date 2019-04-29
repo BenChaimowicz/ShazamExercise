@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 
 export class Song {
 
+  static SongCounter = 1;
   index: number;
 
   constructor(public title: string, public subtitle: string, public coverURL: string) {
+    this.index = Song.SongCounter;
+    Song.SongCounter++;
   }
 }
 

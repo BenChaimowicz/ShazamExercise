@@ -4,3 +4,9 @@
   type="text"
   placeholder="Search...">
 </mat-form-field>
+
+<table mat-table [dataSource]='songList'>
+  <ng-container matColumnDef="index">
+    <td mat-cell *matCellDef="let song">{{song.index}}</td>
+  </ng-container>
+</table>

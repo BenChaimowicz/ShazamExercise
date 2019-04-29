@@ -13,6 +13,7 @@ export class SongtableComponent implements OnInit {
   searchString: string;
   rawList: Song[];
   songList: Song[];
+  dispColumns = ['index', 'info', ]
 
   constructor(private http: DataService, private adapter: SongAdapter) {
     this.getRawList();
