@@ -11,7 +11,6 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class SongtableComponent implements OnInit {
 
-  searchString: string;
   rawList: Song[];
   songList: Song[];
   dispColumns = ['index', 'cover', 'info', 'link', 'action'];
