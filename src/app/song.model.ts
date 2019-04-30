@@ -4,8 +4,9 @@ export class Song {
 
   static SongCounter = 1;
   index: number;
+  favorite = false;
 
-  constructor(public title: string, public subtitle: string, public coverURL: string) {
+  constructor(public title: string, public subtitle: string, public coverURL: string, public link: string) {
     this.index = Song.SongCounter;
     Song.SongCounter++;
   }
@@ -19,7 +20,8 @@ export class SongAdapter {
     return new Song(
       item.heading.title,
       item.heading.subtitle,
-      item.images.default
+      item.images.default,
+      item.url
     );
   }
 }

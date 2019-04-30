@@ -1,0 +1,40 @@
+#generalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#Loader {
+  margin: auto;
+  margin-top: 10%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+img {
+  max-width: 200px;
+}
+
+.logo {
+  max-width: 75px;
+}
+
+tr.mat-row {
+  border: 1px solid rgb(242, 219, 243);
+}
+
+tr.mat-row:hover {
+  transition: background-color 0.5s ease;
+  background-color: rgb(242, 219, 243);
+}
+
+.favorite {
+  background-color: rgb(247, 242, 173);
+}
+
+td.mat-cell {
+  border: none;
+}

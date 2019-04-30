@@ -13,7 +13,7 @@ export class DataService {
 
   baseURL = 'https://fullstack-test-server.herokuapp.com/api/songs';
 
-  constructor(private http: HttpClient, private adapter: SongAdapter) {
+  constructor(private http: HttpClient) {
   }
 
   getList(): Observable<Song[]> {

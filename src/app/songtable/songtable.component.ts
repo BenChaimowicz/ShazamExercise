@@ -2,6 +2,7 @@ import { map } from 'rxjs/operators';
 import { Song, SongAdapter } from './../song.model';
 import { DataService } from './../data.service';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-songtable',
@@ -13,7 +14,9 @@ export class SongtableComponent implements OnInit {
   searchString: string;
   rawList: Song[];
   songList: Song[];
-  dispColumns = ['index', 'info', ]
+  dispColumns = ['index', 'cover', 'info', 'link', 'action'];
+  isLoaded = false;
+  dataSource: MatTableDataSource<Song>;
 
   constructor(private http: DataService, private adapter: SongAdapter) {
     this.getRawList();
@@ -24,13 +27,28 @@ export class SongtableComponent implements OnInit {
 
   getRawList() {
     this.http.getList().subscribe(s => { this.rawList = s; },
-      error => console.error(error), () => { console.log(this.rawList); this.convertToSongList(); });
+      error => console.log(error),
+      () => {
+        console.log(this.rawList);
+        this.convertToSongList();
+        this.isLoaded = true;
+        this.dataSource.filterPredicate = (data: Song, filter: string) => data.title === filter;
+      });
   }
 
   convertToSongList() {
 // tslint:disable-next-line: no-string-literal
-    this.songList = this.rawList['chart'].map(item => this.adapter.adapt(item));
+    this.songList = this.rawList['chart'].map((item: any) => this.adapter.adapt(item));
     console.log(this.songList);
+    this.dataSource = new MatTableDataSource<Song>(this.songList);
+  }
+
+  onFavorite(song: Song) {
+    song.favorite = !song.favorite;
+  }
+
+  applyFilter(s: string) {
+    this.dataSource.filter = s.trim().toLowerCase();
   }
 }
 
