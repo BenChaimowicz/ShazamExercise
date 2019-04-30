@@ -11,7 +11,7 @@
 </mat-progress-spinner>
 </div>
 
-<table mat-table *ngIf="isLoaded" [dataSource]="songList" class="mat-elevation-z8">
+<table mat-table *ngIf="isLoaded" [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="index">
     <th mat-header-cell *matHeaderCellDef>Index</th>
     <td mat-cell [ngClass]="{'favorite': song.favorite}" *matCellDef="let song"><h2>{{song.index}}</h2></td>

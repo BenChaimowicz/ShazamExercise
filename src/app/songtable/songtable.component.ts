@@ -32,7 +32,7 @@ export class SongtableComponent implements OnInit {
         console.log(this.rawList);
         this.convertToSongList();
         this.isLoaded = true;
-        this.dataSource.filterPredicate = (data: Song, filter: string) => data.title === filter;
+        this.dataSource.filterPredicate = (data, filter) => data.title.toLowerCase().indexOf(filter) !== -1;
       });
   }
 
@@ -49,6 +49,7 @@ export class SongtableComponent implements OnInit {
 
   applyFilter(s: string) {
     this.dataSource.filter = s.trim().toLowerCase();
+    console.log(this.dataSource);
   }
 }
 
