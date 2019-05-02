@@ -30,8 +30,9 @@ export class SongtableComponent implements OnInit {
       () => {
         console.log(this.rawList);
         this.convertToSongList();
-        this.isLoaded = true;
         this.dataSource.filterPredicate = (data, filter) => data.title.toLowerCase().indexOf(filter) !== -1;
+        this.isLoaded = true;
+        console.log(this.dataSource);
       });
   }
 
