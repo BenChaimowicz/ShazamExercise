@@ -1,42 +1,27 @@
 const http = require('http');
+const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const Song = require('./Models/Song').default;
+const Song = require('./Models/Song');
+const FavoritesController = require('./Controllers/Favorites');
 
 const app = express();
 
 const port = process.env.PORT || 80;
-const favorites = [];
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// /api/getAllFavorites {Get}
-app.get('/api/getAllFavorites', (req, res) => {
-  res.status(200).json(favorites);
-})
+app.use('/api', FavoritesController);
 
-// /api/addToFavorites {Post}
-app.post('/api/addToFavorites', (req, res) => {
-  if (typeof (req.body.index) === 'number' && req.body.index > 0 && req.body.index % 1 == 0) {
-    const sindex = req.body.index;
-  }
-  if (req.body.title && req.body.title != null && req.body.title != '') {
-    const stitle = req.body.title;
-  }
-  if (req.body.subtitle && req.body.subtitle != null && req.body.subtitle != '') {
-    const ssubtitle = req.body.subtitle;
-  }
-  if (index && title && subtitle) {
-    const scoverURL = req.body.coverURL;
-    const slink = req.body.link;
-
-    favorites.push(new Song(sindex, stitle, ssubtitle, scoverURL, slink));
-  } else { res.status(400) };
-})
+// /* {Get}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
 
 app.use((req, res) => {
-  res.status(404);
-})
+  res.sendStatus(404);
+});
+
 app.listen(port);

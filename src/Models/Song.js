@@ -6,6 +6,7 @@ class Song {
     this.subtitle = s;
     this.coverURL = c;
     this.link = l;
+    this.favorite;
   }
 
 }
