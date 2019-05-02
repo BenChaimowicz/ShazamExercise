@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Song, SongAdapter } from './../song.model';
-import { DataService } from './../data.service';
+import { DataService } from '../services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 
