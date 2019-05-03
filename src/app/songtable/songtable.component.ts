@@ -22,10 +22,10 @@ export class SongtableComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<Song>;
 
   constructor(private http: DataService, private favoritesService: FavoritesService, private adapter: SongAdapter) {
-    this.getRawList();
   }
 
   ngOnInit() {
+    this.getRawList();
   }
 
   getRawList() {
@@ -48,7 +48,6 @@ export class SongtableComponent implements OnInit {
   refreshList() {
     this.dataSource = new MatTableDataSource<Song>(this.songList);
     this.table.renderRows();
-    console.log(this.songList);
   }
 
   applyFilter(s: string) {
@@ -72,7 +71,6 @@ export class SongtableComponent implements OnInit {
 
     if (this.favoriteList.length > 0) {
       this.favoriteList.forEach(fav => {
-        console.log(fav);
         this.songList.forEach(song => {
           if (song.index === fav.index) {
             song.favorite = true;

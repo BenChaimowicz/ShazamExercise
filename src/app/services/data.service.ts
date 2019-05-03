@@ -1,4 +1,4 @@
-import { Song, SongAdapter } from '../song.model';
+import { Song } from '../song.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
