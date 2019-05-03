@@ -4,8 +4,8 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const Song = require('./dist/Models/Song');
-const FavoritesController = require('./dist/Controllers/Favorites');
+const Song = require('./Models/Song');
+const FavoritesController = require('./Controllers/Favorites');
 
 const app = express();
 
