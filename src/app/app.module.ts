@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
+import { FavoritesService } from './services/favorites.service';
 
 import { NgModule } from '@angular/core';
 
@@ -31,7 +32,8 @@ import { SearchlineComponent } from './searchline/searchline.component';
     MatButtonModule,
     MatProgressSpinnerModule,
   ],
-  providers: [DataService],
+  providers: [DataService,
+    FavoritesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
