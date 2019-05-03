@@ -14,10 +14,10 @@ export class FavoritesService {
   constructor(private http: HttpClient) { }
 
   getAllFavorites(): Observable<Song[]> {
-    return this.http.get<Song[]>('http://localhost:80/api/getallfavorites');
+    return this.http.get<Song[]>(this.baseURL + '/getAllFavorites');
   }
 
   addToFavorites(song: Song) {
-    return this.http.post<Song>('http://localhost:80/api/addtofavorites', song);
+    return this.http.post<Song>(this.baseURL + '/addtofavorites', song);
   }
 }
