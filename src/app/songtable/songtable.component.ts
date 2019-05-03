@@ -1,8 +1,9 @@
+import { FavoritesService } from './../services/favorites.service';
 import { map } from 'rxjs/operators';
 import { Song, SongAdapter } from './../song.model';
 import { DataService } from '../services/data.service';
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTable } from '@angular/material';
 
 @Component({
   selector: 'app-songtable',
@@ -16,8 +17,11 @@ export class SongtableComponent implements OnInit {
   dispColumns = ['index', 'cover', 'info', 'link', 'action'];
   isLoaded = false;
   dataSource: MatTableDataSource<Song>;
+  favoriteList: Song[];
 
-  constructor(private http: DataService, private adapter: SongAdapter) {
+  @ViewChild(MatTable) table: MatTable<Song>;
+
+  constructor(private http: DataService, private favoritesService: FavoritesService, private adapter: SongAdapter) {
     this.getRawList();
   }
 
@@ -28,28 +32,55 @@ export class SongtableComponent implements OnInit {
     this.http.getList().subscribe(s => { this.rawList = s; },
       error => console.log(error),
       () => {
-        console.log(this.rawList);
         this.convertToSongList();
         this.dataSource.filterPredicate = (data, filter) => data.title.toLowerCase().indexOf(filter) !== -1;
         this.isLoaded = true;
-        console.log(this.dataSource);
+        this.getFavoriteList();
       });
   }
 
   convertToSongList() {
 // tslint:disable-next-line: no-string-literal
     this.songList = this.rawList['chart'].map((item: any) => this.adapter.adapt(item));
-    console.log(this.songList);
     this.dataSource = new MatTableDataSource<Song>(this.songList);
   }
 
-  onFavorite(song: Song) {
-    song.favorite = !song.favorite;
+  refreshList() {
+    this.dataSource = new MatTableDataSource<Song>(this.songList);
+    this.table.renderRows();
+    console.log(this.songList);
   }
 
   applyFilter(s: string) {
     this.dataSource.filter = s.trim().toLowerCase();
-    console.log(this.dataSource);
+  }
+
+  onFavorite(song: Song) {
+    this.favoritesService.addToFavorites(song).subscribe(() => {
+      song.favorite = !song.favorite;
+      this.refreshList();
+    });
+  }
+
+  getFavoriteList() {
+    this.favoritesService.getAllFavorites().subscribe(song => {
+      this.favoriteList = song;
+    }, err => { console.log(err); }, () => this.updateFavoritesFromServer());
+  }
+
+  updateFavoritesFromServer() {
+
+    if (this.favoriteList.length > 0) {
+      this.favoriteList.forEach(fav => {
+        console.log(fav);
+        this.songList.forEach(song => {
+          if (song.index === fav.index) {
+            song.favorite = true;
+          }
+        });
+      });
+    }
+    this.refreshList();
   }
 }
 

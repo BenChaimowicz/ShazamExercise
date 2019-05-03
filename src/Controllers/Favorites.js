@@ -8,30 +8,41 @@ const favorites = [];
 
 // /api/getAllFavorites {Get}
 router.get('/getAllFavorites', (req, res) => {
-  res.sendStatus(200).send(favorites);
+  res.status(200).send(favorites);
 })
 
 // /api/addToFavorites {Post}
 router.post('/addToFavorites', (req, res) => {
-  // if (typeof (req.body.index) === 'number' && req.body.index > 0 && req.body.index % 1 == 0) {
-  //   const sindex = req.body.index;
-  // }
-  // if (req.body.title && req.body.title != null && req.body.title != '') {
-  //   const stitle = req.body.title;
-  // }
-  // if (req.body.subtitle && req.body.subtitle != null && req.body.subtitle != '') {
-  //   const ssubtitle = req.body.subtitle;
-  // }
-  // if (index && title && subtitle) {
-  //   const scoverURL = req.body.coverURL;
-  //   const slink = req.body.link;
-
-  //   let song = new Song(sindex, stitle, ssubtitle, scoverURL, slink);
-  //   favorites.push(song);
-  //   console.log(song);
-  // } else { res.sendStatus(400) };
-  console.log(JSON.stringify(req.body));
-  res.sendStatus(201);
+  checkFavorites(req.body);
+  console.log(favorites);
+  console.log(favorites.length);
+  res.status(201);
+  res.end();
 });
+
+function checkFavorites(song) {
+  let found = false;
+
+  if (favorites.length > 0) {
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i].index === song.index) {
+        found = true;
+        favorites.splice(i);
+        break;
+      }
+    }
+  }
+  if (!found) {
+    favorites.push(new Song(song.index, song.title, song.subtitle, song.coverURL, song.link));
+  }
+
+  markFavorite();
+}
+
+function markFavorite() {
+  favorites.forEach(song => {
+    song.favorite = true;
+  });
+}
 
 module.exports = router;
