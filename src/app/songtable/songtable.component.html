@@ -15,34 +15,45 @@
   <ng-container matColumnDef="index">
     <th mat-header-cell *matHeaderCellDef>Index</th>
     <td mat-cell [ngClass]="{'favorite': song.favorite}" *matCellDef="let song">
-      <h2 class="shrinking-ind shrinking">{{song.index}}</h2></td>
+      <span class="shrinking-ind shrinking">
+      <h2 >{{song.index}}</h2>
+    </span></td>
   </ng-container>
   <ng-container matColumnDef="cover">
     <th mat-header-cell *matHeaderCellDef>Album Cover</th>
     <td mat-cell [ngClass]="{'favorite': song.favorite}" class="coverCell" *matCellDef="let song">
-      <img class="shrinking" [src]="song.coverURL" alt="">
+      <span class="shrinking shrinking-img"><img class="shrinking-img" [src]="song.coverURL" alt=""></span>
     </td>
   </ng-container>
   <ng-container matColumnDef="info">
     <th mat-header-cell *matHeaderCellDef>Song Info</th>
     <td mat-cell [ngClass]="{'favorite': song.favorite}" *matCellDef="let song">
-      <div class="shrinking">
+      <span class="shrinking shrinking-info">
         <h3>{{song.title | uppercase}}</h3>
         <p>{{song.subtitle}}</p>
-      </div>
+      </span>
     </td>
   </ng-container>
   <ng-container matColumnDef="link">
       <th mat-header-cell *matHeaderCellDef>Link To Shazam</th>
       <td mat-cell [ngClass]="{'favorite': song.favorite}" *matCellDef="let song">
-        <a class="shrinking" [href]="song.link" target="_blank"><img class="logo" src="../../assets/shazlogo.png" alt=""></a>
-      </td>
+        <span class="shrinking shrinking-logo"><a  [href]="song.link" target="_blank"><img class="logo" src="../../assets/shazlogo.png" alt=""></a>
+        </span></td>
   </ng-container>
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Favorite</th>
-    <td mat-cell [ngClass]="{'favorite': song.favorite}" class="favCell" *matCellDef="let song">
-      <button class="shrinking" mat-raised-button (click)="onFavorite(song)">{{song.favorite ? 'Remove from favorites' : 'Add to favorites'}}</button>
-    </td>
+    <td mat-cell [ngClass]="{'favorite': song.favorite}" *matCellDef="let song">
+      <span class="shrinking shrinking-fav shrinking-logo">
+      <button  mat-raised-button (click)="onFavorite(song)">{{song.favorite ? 'Remove from favorites' : 'Add to favorites'}}</button>
+    </span>
+    <span class="shrinking shrinking-flex">
+      <a [href]="song.link" target="_blank"><img class="logo" src="../../assets/shazlogo.png" alt=""></a>
+      <a (click)="onFavorite(song)">
+        <img *ngIf="song.favorite" src="../../assets/baseline_remove_circle_black_36dp.png" alt="">
+        <img *ngIf="!song.favorite" src="../../assets/baseline_add_circle_black_36dp.png" alt="">
+      </a>
+    </span>
+  </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="dispColumns"></tr>

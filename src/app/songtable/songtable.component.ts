@@ -30,7 +30,9 @@ export class SongtableComponent implements OnInit {
 
   getRawList() {
     this.http.getList().subscribe(s => { this.rawList = s; },
-      error => console.log(error),
+      error => {
+        console.log(error);
+      },
       () => {
         this.convertToSongList();
         this.dataSource.filterPredicate = (data, filter) => data.title.toLowerCase().indexOf(filter) !== -1;
@@ -58,13 +60,15 @@ export class SongtableComponent implements OnInit {
     this.favoritesService.addToFavorites(song).subscribe(() => {
       song.favorite = !song.favorite;
       this.refreshList();
+    }, error => {
+        console.log('Could not save favorite, server is not responding!');
     });
   }
 
   getFavoriteList() {
     this.favoritesService.getAllFavorites().subscribe(song => {
       this.favoriteList = song;
-    }, err => { console.log(err); }, () => this.updateFavoritesFromServer());
+    }, err => { console.log('Could not retrieve favorite songs from server.'); }, () => this.updateFavoritesFromServer());
   }
 
   updateFavoritesFromServer() {

@@ -17,11 +17,13 @@ export class Song {
 })
 export class SongAdapter {
   adapt(item: any): Song {
-    return new Song(
+    const song = new Song(
       item.heading.title,
       item.heading.subtitle,
       item.images.default,
       item.url
     );
+    song.favorite = false;
+    return song;
   }
 }
