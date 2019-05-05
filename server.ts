@@ -1,11 +1,10 @@
-const http = require('http');
-const path = require('path');
+import * as path from 'path';
 
-const express = require('express');
-const bodyParser = require('body-parser');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
 
-const Song = require('./Models/Song');
-const FavoritesController = require('./Controllers/Favorites');
+import { Song } from './Models/Song';
+import { router } from './Controllers/Favorites';
 
 const app = express();
 
@@ -21,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api', FavoritesController);
+app.use('/api', router);
 
 // /* {Get}
 app.get('*', (req, res) => {
