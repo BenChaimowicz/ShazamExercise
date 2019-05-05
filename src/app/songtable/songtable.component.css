@@ -45,15 +45,23 @@ td.mat-cell {
 }
 
 @media(max-width: 640px) {
+
   .shrinking {
     width: 80px;
     display: inline-block;
     font-weight: bold;
+    font-size: 0.9em;
   }
   .shrinking-ind {
-    width: 10%;
+    text-align: left;
+    width: 15%;
   }
   .shrinking-img {
+    width: 100%;
+    max-width: 150px;
+  }
+
+  .shrinking-img > img {
     width: 100%;
   }
   .shrinking-logo{
@@ -61,11 +69,11 @@ td.mat-cell {
   }
   .shrinking-fav{
     width: 100%;
+    max-width: 10px;
   }
   .shrinking-flex{
     display: flex;
     flex-direction: column;
-
   }
   .mat-header-row {
     display: none;
