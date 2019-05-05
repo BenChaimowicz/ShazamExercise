@@ -7,12 +7,13 @@ export class Song {
   link: string;
   favorite: boolean;
 
-  constructor(i, t, s, c, l) {
+  constructor(i: number, t: string, s: string, c: string, l: string) {
     this.index = i;
     this.title = t;
     this.subtitle = s;
     this.coverURL = c;
     this.link = l;
+    this.favorite = false;
   }
 
 }

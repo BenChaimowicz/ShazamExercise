@@ -1,11 +1,10 @@
 import * as express from 'express';
 
 import { Song } from '../Models/Song';
-import { send } from 'q';
 
 export const router = express.Router();
 
-const favorites = [];
+const favorites: Song[] = [];
 
 // /api/getAllFavorites {Get}
 router.get('/getAllFavorites', (req, res) => {
@@ -21,7 +20,7 @@ router.post('/addToFavorites', (req, res) => {
   res.end();
 });
 
-function checkFavorites(song) {
+function checkFavorites(song: Song) {
   let found = false;
 
   if (favorites.length > 0) {

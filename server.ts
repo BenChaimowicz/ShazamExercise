@@ -3,7 +3,6 @@ import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
-import { Song } from './Models/Song';
 import { router } from './Controllers/Favorites';
 
 const app = express();
