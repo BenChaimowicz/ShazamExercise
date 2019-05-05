@@ -84,4 +84,8 @@ td.mat-cell {
     align-items: start;
     padding: 8px 4px;
   }
+
+  .clickable:hover{
+    cursor: pointer;
+  }
 }

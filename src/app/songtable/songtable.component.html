@@ -48,7 +48,7 @@
     </span>
     <span class="shrinking shrinking-flex">
       <a [href]="song.link" target="_blank"><img class="logo" src="../../assets/shazlogo.png" alt=""></a>
-      <a (click)="onFavorite(song)">
+      <a (click)="onFavorite(song)" class="clickable">
         <img *ngIf="song.favorite" src="../../assets/baseline_remove_circle_black_36dp.png" alt="">
         <img *ngIf="!song.favorite" src="../../assets/baseline_add_circle_black_36dp.png" alt="">
       </a>
